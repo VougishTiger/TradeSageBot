@@ -1,0 +1,20 @@
+{
+  "name": "tradesagebot",
+  "version": "1.0.0",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@alpacahq/alpaca-trade-api": "^3.1.3",
+    "axios": "^1.11.0",
+    "dotenv": "^17.2.1",
+    "luxon": "^3.7.1",
+    "technicalindicators": "^3.1.0"
+  },
+  "description": ""
+}
