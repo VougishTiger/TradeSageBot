@@ -54,15 +54,18 @@ export const calculateMACD = (bars) => {
 };
 
 /**
- * Check for a volume spike
+ * Check for a volume spike using recent bars
  * @param {Array} bars
- * @returns {boolean} - true if latest volume is 1.5x higher than average of last 20 bars
+ * @param {number} recentBars - Number of bars to average (default 10)
+ * @param {number} multiplier - Spike threshold (default 1.0)
+ * @returns {boolean}
  */
-export const isVolumeSpike = (bars) => {
+export const isVolumeSpike = (bars, recentBars = 10, multiplier = 1.0) => {
   const volumes = bars.map(bar => bar.Volume);
-  const avgVolume = volumes.slice(-21, -1).reduce((a, b) => a + b, 0) / 20;
+  if (volumes.length < recentBars + 1) return false;
+  const avgVolume = volumes.slice(-recentBars - 1, -1).reduce((a, b) => a + b, 0) / recentBars;
   const latestVolume = volumes[volumes.length - 1];
-  return latestVolume > avgVolume * 1.5;
+  return latestVolume > avgVolume * multiplier;
 };
 
 /**
@@ -77,7 +80,7 @@ export const getAllIndicators = (bars) => {
   const ema50 = calculateEMA(bars, 50);
   const vwap = calculateVWAP(bars);
   const macd = calculateMACD(bars);
-  const volumeSpike = isVolumeSpike(bars);
+  const volumeSpike = isVolumeSpike(bars, 10, 1.0); // Uses last 10 bars and 1.0x threshold
 
   return {
     rsi: rsi[rsi.length - 1],

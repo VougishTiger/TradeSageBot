@@ -147,7 +147,7 @@ const runBot = async () => {
 
     if (!signal) {
       confirmationCandles = [];
-      console.log('No signal. Waiting...');
+      console.log(`[${new Date().toLocaleTimeString()}] No signal. Waiting...`);
       return;
     }
 
@@ -168,4 +168,4 @@ const runBot = async () => {
   }
 };
 
-setInterval(runBot, 60 * 1000);
+setInterval(runBot, 20*1000);
